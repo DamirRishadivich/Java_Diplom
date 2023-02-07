@@ -15,7 +15,7 @@ public class BooleanSearchEngine implements SearchEngine {
     public BooleanSearchEngine(File pdfsDir) throws IOException {
         for (File pdf : pdfsDir.listFiles()) {
             var doc = new PdfDocument(new PdfReader(pdf));
-            var pageCount = doc.getNumberOfPages(); // Количество страниц в документе
+            var pageCount = doc.getNumberOfPages();
 
             for (int pageNumber = 1; pageNumber <= pageCount; pageNumber++) {
                 var page = doc.getPage(pageNumber);
