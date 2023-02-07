@@ -15,10 +15,8 @@ public class Main {
                         PrintWriter writer = new PrintWriter(socket.getOutputStream());
                 ) {
                     String search = reader.readLine();
-
-                    String answer = engine.search(search).toString();
-
-                    writer.print(answer);
+                    String answerToBooleanSearchEngine = engine.search(search).toString();
+                    writer.print(answerToBooleanSearchEngine);
                     // обработка одного подключения
                 }
             }

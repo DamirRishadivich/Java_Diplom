@@ -1,9 +1,5 @@
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.json.simple.JSONObject;
-
-import java.util.LinkedHashMap;
-import java.util.Map;
 
 public class PageEntry implements Comparable<PageEntry> {
     private final String pdfName;
@@ -39,8 +35,8 @@ public class PageEntry implements Comparable<PageEntry> {
     public String toString() {
         ObjectMapper mapper = new ObjectMapper();
         try {
-            String json = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(this);
-            return json;
+            String jsonStringResponse = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(this);
+            return jsonStringResponse;
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
         }

@@ -3,8 +3,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
-import java.util.List;
-import java.util.Scanner;
 
 public class Client {
     public static void main(String[] args) {
@@ -14,14 +12,13 @@ public class Client {
         try (Socket socket = new Socket(host, port)) {
             PrintWriter writer = new PrintWriter(socket.getOutputStream(), true);
             BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+            String searchFromServer = "блокчейн";
+            writer.println(searchFromServer);
 
-            writer.println("блокчейн");
-            System.out.println(reader.readLine());
+            System.out.println(reader.readLine()); //Первая строка приходит пустая :) Это костыль для цикла while
             while (reader.ready()) {
                 System.out.println(reader.readLine());
             }
-
-
         } catch (IOException e) {
             e.getMessage();
         }
