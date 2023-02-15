@@ -11,11 +11,20 @@ import java.util.*;
 public class BooleanSearchEngine implements SearchEngine {
     protected HashMap<String, List<PageEntry>> pageEntryMap = new HashMap<>();
     protected List<PageEntry> emptyList = new ArrayList<>();
+    protected List<String> stopList = new ArrayList<>();
 
-    public BooleanSearchEngine(File pdfsDir) throws IOException {
+    public BooleanSearchEngine(File pdfsDir, File stopWordListPath) throws IOException {
         for (File pdf : pdfsDir.listFiles()) {
             var doc = new PdfDocument(new PdfReader(pdf));
             var pageCount = doc.getNumberOfPages();
+
+            try (BufferedReader reader = new BufferedReader(new FileReader(new File("stop-ru.txt")))) {
+                while (reader.ready()) {
+                    stopList.add(reader.readLine());
+                }
+            } catch (IOException e) {
+                e.getMessage();
+            }
 
             for (int pageNumber = 1; pageNumber <= pageCount; pageNumber++) {
                 var page = doc.getPage(pageNumber);
@@ -51,16 +60,6 @@ public class BooleanSearchEngine implements SearchEngine {
     public List<PageEntry> search(String word) throws IOException {
         String[] parts = word.split("\\P{IsAlphabetic}+");
         List<String> searchList = new ArrayList<>(Arrays.asList(parts));
-        List<String> stopList = new ArrayList<>();
-
-        try (BufferedReader reader = new BufferedReader(new FileReader(new File("stop-ru.txt")))) {
-            while (reader.ready()) {
-                stopList.add(reader.readLine());
-            }
-        } catch (IOException e) {
-            e.getMessage();
-        }
-
         searchList.removeAll(stopList);
         List<List<PageEntry>> pageEntryList = new ArrayList<>();
         

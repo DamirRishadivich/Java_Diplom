@@ -12,7 +12,7 @@ public class Client {
         try (Socket socket = new Socket(host, port)) {
             PrintWriter writer = new PrintWriter(socket.getOutputStream(), true);
             BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-            String searchFromServer = "блокчейн";
+            String searchFromServer = "блокчейн можно";
             writer.println(searchFromServer);
 
             System.out.println(reader.readLine()); //Первая строка приходит пустая :) Это костыль для цикла while

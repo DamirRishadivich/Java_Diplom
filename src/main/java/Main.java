@@ -4,7 +4,7 @@ import java.net.Socket;
 
 public class Main {
     public static void main(String[] args) throws Exception {
-        BooleanSearchEngine engine = new BooleanSearchEngine(new File("pdfs"));
+        BooleanSearchEngine engine = new BooleanSearchEngine(new File("pdfs"), new File("stop-ru.txt"));
         try (ServerSocket serverSocket = new ServerSocket(8989);) { // стартуем сервер один(!) раз
             while (true) { // в цикле(!) принимаем подключения
                 try (
